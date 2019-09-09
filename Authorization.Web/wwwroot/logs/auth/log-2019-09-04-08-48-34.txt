@@ -1,0 +1,27 @@
+ContextDetails
+
+User: ehowell
+Local IP: ::1
+Local Port: 5000
+Remote IP: ::1
+Remote Port: 63786
+Content Type: 
+URL: http://localhost:5000/api/test/microsoft/getOrgAsTech
+
+Headers
+Cache-Control : max-age=0
+Connection : keep-alive
+Accept : text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Accept-Encoding : gzip, deflate, br
+Accept-Language : en-US,en;q=0.9
+Cookie : .AspNetCore.MicrosoftCookie=CfDJ8I7vgPqONj1Gjf9Ui-4P9HDeu-HJo5PxTs6g7PlWGR4OlV0fwk3GTJi6YxT2nGagJT7DicLK84g1xuNDw6BvErIy2JLhCq81O6hSDTlyzXg7KP-6VH0vmXTIBTiIaniBO_J32qyrEC6-XcUf76K78jXL0b8ItFsV9OPIGP8g9YP3bqBVRyedEjbcBlFz6uNijsUIPVTfv6_TYXIGhfIrnYisuSCVHyQRypsYGZrvQNKEzFth0epxBGSvNxSeOJPyw7dltYCvlwo4Q8YREYrmUHQZUPSLyaAy3Tc3fjKQj8HyFFjhYZRetjGpo-ljpTBpsPnYwQpo2OtgLs4x0sJyTmro7npZ_SMdIE0J5o4OBVuFluf2P8VosS-D3I9o1XUyF63vL1AIiOeDTwnTgXptn9Zvmb9PxvOxEgSNjFmtTr1WWqKpb34S4q229HnYW2dli7ZG5uAzjzcayKqImUJIyEqZuUDQaaZMgSLBVj9ywtPieiZX7IeRvYGg5egNyPzTEGeoqfhQKp4_fr3YlAJWNoJe7pV5dNh4yQhReetcTdcYVMGFnWl3eKoImcmttvPKZwJFzpHhxGExzVeNCXDgQKDd7BMbgRoAIbq_9ERdC-Wb0PjXLJ86JAjp_94aMBXfZ1OEQ9LttGOYqXZkWlzV_8FTXJt-VGL7anl1HJvHkSWpJ7hYmRoww3Ng9tImgXsWq0rBdsCVptMrvRByozRLwDND3cqh4PGO4NWpcjS74HZMyqLmwkLwPpI1MQ-j-TUpHEMsIKyDhGJo19cQ9OGCUHRMn6gZaLDtEULUaFbZP0F-u4wRkYnSRenqh2V27bFkKQ69ywbmIc_uzRZfc2aS1HiS9cDJUNnzIIgiUQNApmZRd5pvl_mijzt4EXgrHIzXvQ; .AspNetCore.Session=CfDJ8I7vgPqONj1Gjf9Ui%2B4P9HB2sPPSVmKYEFPtfzsbICa53b7pAdFkoz1zJDdwBbeDVng%2Bfrk0q2D6IviYbETIBAW8QFT9f73P4Ch%2Bi4VZ6gZNPO1D7efEiRttiyGRpkG6bGPIN%2BJLG4Uv%2BHds3ympxAqrlsYGhCHQBGN31XtZqjsp; .AspNetCore.Cookies=CfDJ8I7vgPqONj1Gjf9Ui-4P9HAWOeNQre_U2QNNWWrQRgAOzFPrjL4Pk13CGUg_HAxHHs-RnWGL11BMzq6PHA0dPEQ6igmwY2runYMKEBeJN80tvESme6xfdT2cseW8GYw53bh1Y4uPOrwS5VGhVw5iRLcKc-rP0hQePfXIj_NACPv4R4wUd7dlFv_CQCTjPX1aJX7Hx8jlKQhxLmlI5Hh3Ry53lou--vsrde5DR4LUJlNZQPSXTF-ojXK5L7OfGjS7J5rIWj207RtvMFltyD3SN6kgxDNxbHoXszAK8zTAw0kICdb3uth1dNdJCQlq-qXqkGK5duMKEDm445ucZ9nsc9sumfgNg9Hd-VNUUJo8oqEz5vfIxeveaR1rWo7KJBnKVOBaO7HuRXQL6LWifbO0cDhiHJFYX0veVjGaluUf9zyzVVyjkwnKrjegKzAPkODa5gT-NY_mwO57oP6QzgjNhQQ
+Host : localhost:5000
+User-Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36
+Upgrade-Insecure-Requests : 1
+Sec-Fetch-Mode : navigate
+Sec-Fetch-User : ?1
+DNT : 1
+Sec-Fetch-Site : none
+
+Exception Details
+ehowell is not authorized to access this resource

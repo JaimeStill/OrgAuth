@@ -1,0 +1,36 @@
+<div class="mat-typography">
+  <h2 mat-dialog-title>
+    <span *ngIf="org.id > 0">Edit Org</span>
+    <span *ngIf="!(org.id > 0)">Add Org</span>
+  </h2>
+  <mat-dialog-content>
+    <section fxLayout="column"
+             fxLayoutAlign="start stretch"
+             class="container">
+      <p class="color warn"
+         *ngIf="!(validOrgName)">This Org name is already taken!</p>
+      <p *ngIf="validOrgName">This Org name is available!</p>
+      <section fxLayout="row"
+               fxLayoutAlign="start center">
+        <mat-form-field fxFlex>
+          <mat-label>Org</mat-label>
+          <input matInput
+                 [(ngModel)]="org.name"
+                 #orgInput />
+        </mat-form-field>
+        <mat-icon color="primary"
+                  *ngIf="validOrgName">check_circle_outline</mat-icon>
+        <mat-icon color="warn"
+                  *ngIf="!(validOrgName)">error_outline</mat-icon>
+      </section>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            (click)="saveOrg()"
+            [disabled]="!(validOrgName)">Save</button>
+    <button mat-button
+            mat-dialog-close
+            color="warn">Cancel</button>
+  </mat-dialog-actions>
+</div>

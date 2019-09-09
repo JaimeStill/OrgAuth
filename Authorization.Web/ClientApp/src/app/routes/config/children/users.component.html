@@ -1,0 +1,38 @@
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"></mat-progress-bar>
+</ng-template>
+<ng-container *ngIf="identity.users$ | async as users else loading">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button
+            matTooltip="Add Users"
+            (click)="openAddUsers()">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    <button mat-icon-button
+            matTooltip="User Bin"
+            color="warn"
+            (click)="openUserBin()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </mat-toolbar>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           class="container">
+    <searchbar label="Search"
+               [minimum]="1"
+               (search)="identity.searchUsers($event)"
+               (clear)="identity.getUsers()"></searchbar>
+  </section>
+  <section *ngIf="users.length > 0"
+           fxLayout="row | wrap"
+           fxLayoutAlign="start start"
+           class="container">
+    <admin-user-card *ngFor="let u of users"
+                     [user]="u"
+                     (admin)="toggleAdmin($event)"
+                     (edit)="editUser($event)"
+                     (delete)="toggleDeleted($event)"></admin-user-card>
+  </section>
+  <h3 *ngIf="!(users.length > 0)">No Users Found</h3>
+</ng-container>

@@ -1,0 +1,26 @@
+<section fxLayout="column"
+         fxLayoutAlign="start stretch"
+         class="background card elevated"
+         [style.width.px]="size">
+  <section fxLayout="row"
+           fxLayoutAlign="start center"
+           class="background header"
+           [ngClass]="selected ? selectedClass : 'card'">
+    <p class="mat-body-strong"
+       fxFlex>{{user.userName}}</p>
+    <button *ngIf="selected"
+            mat-icon-button
+            matTooltip="Deselect"
+            (click)="deselect.emit(user)">
+      <mat-icon>{{deselectIcon}}</mat-icon>
+    </button>
+    <button *ngIf="!(selected)"
+            mat-icon-button
+            matTooltip="Select"
+            (click)="action.emit(user)">
+      <mat-icon>{{actionIcon}}</mat-icon>
+    </button>
+  </section>
+  <p>{{user.lastName}}, {{user.firstName}}</p>
+  <p>{{user.email}}</p>
+</section>

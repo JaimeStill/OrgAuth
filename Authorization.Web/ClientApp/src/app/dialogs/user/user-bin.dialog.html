@@ -1,0 +1,41 @@
+<div class="mat-typography">
+  <h2 mat-dialog-title>User Bin</h2>
+  <mat-dialog-content>
+    <ng-template #loading>
+      <p class="mat-title">Loading User Bin</p>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="identity.users$ | async as users else loading">
+      <section *ngIf="users.length > 0"
+               fxLayout="column"
+               fxLayoutAlign="start stretch"
+               class="container">
+        <section *ngFor="let u of users"
+                 class="background card elevated"
+                 fxLayout="column"
+                 fxLayoutAlign="start stretch">
+          <section fxLayout="row"
+                   fxLayoutAlign="start center"
+                   class="container">
+            <p class="mat-title"
+               fxFlex>{{u.userName}}</p>
+            <button mat-button
+                    color="warn"
+                    (click)="removeUser(u)">Delete</button>
+            <button mat-button
+                    (click)="restoreUser(u)">Restore</button>
+          </section>
+          <p>{{u.lastName}}, {{u.firstName}}</p>
+          <p>{{u.email}}</p>
+        </section>
+      </section>
+      <p *ngIf="!(users.length > 0)"
+         class="mat-title">Recycle Bin is Empty</p>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

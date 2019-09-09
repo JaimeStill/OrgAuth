@@ -1,0 +1,11 @@
+<div class="mat-typography">
+  <p class="color warn mat-headline">Access Denied</p>
+  <ng-template #loadingMessage>
+    <mat-progress-bar mode="indeterminate"
+                      color="accent"></mat-progress-bar>
+  </ng-template>
+  <ng-container *ngIf="!loading else loadingMessage">
+    <p class="mat-title">Message</p>
+    <p class="mat-subheading-2">{{message}}</p>
+  </ng-container>
+</div>

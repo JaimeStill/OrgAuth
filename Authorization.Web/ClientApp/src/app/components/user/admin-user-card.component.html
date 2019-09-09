@@ -1,0 +1,34 @@
+<section class="background card elevated"
+         fxLayout="row"
+         fxLayoutAlign="start start"
+         [style.width.px]="size">
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxFlex>
+    <p class="mat-body-strong">{{user.lastName}}, {{user.firstName}}</p>
+    <p>{{user.userName}}</p>
+    <p>{{user.email}}</p>
+  </section>
+  <section class="background stacked"
+           fxLayout="column"
+           fxLayoutAlign="space-evenly center">
+    <button mat-icon-button
+            (click)="admin.emit(user)">
+      <mat-icon matTooltip="Admin"
+                *ngIf="user.isAdmin">star</mat-icon>
+      <mat-icon matTooltip="User"
+                *ngIf="!(user.isAdmin)">star_border</mat-icon>
+    </button>
+    <button mat-icon-button
+            matTooltip="Edit"
+            (click)="edit.emit(user)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button
+            matTooltip="Delete"
+            color="warn"
+            (click)="delete.emit(user)">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </section>
+</section>

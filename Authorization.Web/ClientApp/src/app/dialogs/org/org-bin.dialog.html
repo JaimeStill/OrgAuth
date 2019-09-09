@@ -1,0 +1,38 @@
+<div class="mat-typography">
+  <h2 mat-dialog-title>Org Bin</h2>
+  <mat-dialog-content>
+    <ng-template #loading>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="orgSvc.orgs$ | async as orgs else loading">
+      <section *ngIf="orgs.length > 0"
+               fxLayout="column"
+               fxLayoutAlign="start stretch"
+               class="container">
+        <section *ngFor="let o of orgs"
+                 class="background card elevated"
+                 fxLayout="column"
+                 fxLayoutAlign="start stretch">
+          <section fxLayout="row"
+                   fxLayoutAlign="start center"
+                   class="container">
+            <p class="mat-title"
+               fxFlex>{{o.name}}</p>
+            <button mat-button
+                    color="warn"
+                    (click)="removeOrg(o)">Delete</button>
+            <button mat-button
+                    (click)="restoreOrg(o)">Restore</button>
+          </section>
+        </section>
+      </section>
+      <p *ngIf="!(orgs.length > 0)"
+         class="mat-title">Recycle Bin is Empty</p>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,52 @@
+<section fxLayout="row"
+         fxLayoutAlign="start start">
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch">
+    <mat-toolbar>Users</mat-toolbar>
+    <searchbar label="Search Users"
+               [minimum]="2"
+               (search)="identity.searchUsers($event)"
+               (clear)="identity.getUsers()"></searchbar>
+    <ng-template #loadingUsers>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="identity.users$ | async as users else loadingUsers">
+      <section fxLayout="column"
+               fxLayoutAlign="start stretch"
+               class="container"
+               *ngIf="users.length > 0">
+        <user-select-card *ngFor="let u of users"
+                          [user]="u"
+                          [selected]="u.id === user?.id"
+                          (action)="selectUser($event)"
+                          (deselect)="deselectUser()"></user-select-card>
+      </section>
+      <p class="mat-body-strong"
+         *ngIf="!(users.length > 0)">No Users Available</p>
+    </ng-container>
+  </section>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxFlex>
+    <mat-toolbar>Briefs</mat-toolbar>
+    <ng-template #loadingBriefs>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="user?.id">
+      <ng-container *ngIf="briefSvc.briefs$ | async as briefs else loadingBriefs">
+        <section *ngIf="briefSvc.excludedBriefs$ | async as excludedBriefs else loadingBriefs"
+                 class="container">
+          <p class="mat-title">{{user?.userName}}'s Briefs</p>
+          <brief-selector [briefs]="excludedBriefs"
+                          [userBriefs]="briefs"
+                          [pending]="uploading"
+                          (save)="saveUserBriefs($event)"></brief-selector>
+        </section>
+      </ng-container>
+    </ng-container>
+    <p *ngIf="!(user?.id)"
+       class="mat-body-strong">Select a User to Assign Briefs</p>
+  </section>
+</section>

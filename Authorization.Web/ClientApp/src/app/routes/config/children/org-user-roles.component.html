@@ -1,0 +1,72 @@
+<section fxLayout="row"
+         fxLayoutAlign="start start">
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch">
+    <mat-toolbar>Orgs</mat-toolbar>
+    <searchbar label="Search Orgs"
+               [minimum]="2"
+               (search)="orgSvc.searchOrgs($event)"
+               (clear)="orgSvc.getOrgs()"></searchbar>
+    <ng-template #loadingOrgs>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="orgSvc.orgs$ | async as orgs else loadingOrgs">
+      <section fxLayout="column"
+               fxLayoutAlign="start stretch"
+               class="container"
+               *ngIf="orgs.length > 0">
+        <org-select-card *ngFor="let o of orgs"
+                         [org]="o"
+                         [selected]="o.id === org?.id"
+                         (action)="selectOrg($event)"
+                         (deselect)="deselectOrg()"></org-select-card>
+      </section>
+    </ng-container>
+  </section>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch">
+    <mat-toolbar>Org Users</mat-toolbar>
+    <ng-template #loadingUsers>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="org?.id">
+      <ng-container *ngIf="orgSvc.users$ | async as users else loadingUsers">
+        <section fxLayout="column"
+                 fxLayoutAlign="start stretch"
+                 class="container"
+                 *ngIf="users.length > 0">
+          <user-select-card *ngFor="let u of users"
+                            [user]="u"
+                            [selected]="u.id === user?.id"
+                            (action)="selectUser($event)"
+                            (deselect)="deselectUser()"></user-select-card>
+        </section>
+      </ng-container>
+    </ng-container>
+    <p *ngIf="!(org?.id)"
+       class="mat-body-strong">Select an Org to retrieve Org Users</p>
+  </section>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxFlex>
+    <mat-toolbar>Roles</mat-toolbar>
+    <ng-template #loadingRoles>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="org?.id && user?.id">
+      <ng-container *ngIf="orgSvc.excludedRoles$ | async as excludedRoles else loadingRoles">
+        <section *ngIf="orgSvc.roles$ | async as roles else loadingRoles" class="container">
+          <user-role-selector [assigned]="roles"
+                              [available]="excludedRoles"
+                              [pending]="uploading"
+                              (save)="saveOrgUserRoles($event)"></user-role-selector>
+        </section>
+      </ng-container>
+    </ng-container>
+    <p *ngIf="!(org?.id && user?.id)"
+       class="mat-body-strong">Select an Org and User to Assign User Roles</p>
+  </section>
+</section>

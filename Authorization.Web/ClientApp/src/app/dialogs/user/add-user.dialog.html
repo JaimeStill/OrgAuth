@@ -1,0 +1,48 @@
+<div class="mat-typography">
+  <h2 mat-dialog-title>Add User</h2>
+  <mat-dialog-content>
+    <searchbar label="Search Users"
+               [minimum]="2"
+               (search)="identity.searchDomainUsers($event)"
+               (clear)="identity.getDomainUsers()"></searchbar>
+    <ng-template #loading>
+      <p class="mat-title">Loading Domain Users</p>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="identity.domainUsers$ | async as users else loading">
+      <section *ngIf="users.length > 0"
+               fxLayout="row | wrap"
+               fxLayoutAlign="start start"
+               class="container">
+        <section *ngFor="let u of users"
+                 fxLayout="column"
+                 fxLayoutAlign="start stretch"
+                 class="background card elevated"
+                 [style.width.px]="320">
+          <section fxLayout="row"
+                   fxLayoutAlign="start center"
+                   class="background stacked">
+            <p class="mat-body-strong"
+               fxFlex>{{u.samAccountName}}</p>
+            <button mat-icon-button
+                    matTooltip="Create Account"
+                    [disabled]="creating"
+                    (click)="createAccount(u)">
+              <mat-icon>add_circle_outline</mat-icon>
+            </button>
+          </section>
+          <p>{{u.surname}}, {{u.givenName}}</p>
+          <p>{{u.userPrincipalName}}</p>
+        </section>
+      </section>
+      <p class="mat-title"
+         *ngIf="!(users.length > 0)">No Users Found</p>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            [disabled]="creating"
+            mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,23 @@
+<ng-container *ngIf="banner.config$ | async as config else loading">
+  <ng-container *ngIf="theme.theme$ | async as currentTheme">
+    <ng-container *ngIf="sidepanel.state$ | async as panelState">
+      <ng-container *ngIf="identity.currentUser$ | async as user else loading">
+        <ng-container *ngIf="authContext.auth$ | async as auth else orgSelect">
+          <layout-view [config]="config"
+                       [theme]="currentTheme"
+                       [state]="panelState"
+                       [user]="user"
+                       [auth]="auth"></layout-view>
+        </ng-container>
+        <ng-template #orgSelect>
+          <org-select-view [user]="user"
+                           [theme]="currentTheme"></org-select-view>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-container>
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"></mat-progress-bar>
+</ng-template>

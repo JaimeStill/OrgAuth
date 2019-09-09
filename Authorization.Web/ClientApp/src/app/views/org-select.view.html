@@ -1,0 +1,30 @@
+<ng-container *ngIf="identity.orgs$ | async as orgs else loading">
+  <ng-container *ngIf="orgs.length > 0">
+    <div class="mat-typography mat-app-background app-frame"
+         fxLayout="column"
+         [ngClass]="theme.name">
+      <mat-toolbar>Select an Org</mat-toolbar>
+      <section class="app-body"
+               fxFlex
+               fxFill
+               fxLayout="row"
+               fxLayoutAlign="start stretch">
+        <section fxLayout="row | wrap"
+                 fxLayoutAlign="start start"
+                 class="container">
+          <org-select-card *ngFor="let org of orgs"
+                           actionIcon="play_arrow"
+                           [org]="org"
+                           (action)="selectOrg($event)"></org-select-card>
+        </section>
+      </section>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!(orgs.length > 0)">
+    <denied-view message="You must be assigned to an org to access this application"></denied-view>
+  </ng-container>
+</ng-container>
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"></mat-progress-bar>
+</ng-template>

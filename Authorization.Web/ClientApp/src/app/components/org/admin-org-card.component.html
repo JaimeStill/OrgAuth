@@ -1,0 +1,25 @@
+<section class="background card elevated"
+         fxLayout="row"
+         fxLayoutAlign="start center"
+         [style.width.px]="size">
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxFlex>
+    <p class="mat-body-strong">{{org.name}}</p>
+  </section>
+  <section class="background stacked"
+           fxLayout="column"
+           fxLayoutAlign="space-evenly center">
+    <button mat-icon-button
+            matTooltip="Edit"
+            (click)="edit.emit(org)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button
+            matTooltip="Delete"
+            color="warn"
+            (click)="delete.emit(org)">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </section>
+</section>

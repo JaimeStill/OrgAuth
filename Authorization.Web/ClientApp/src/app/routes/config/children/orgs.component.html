@@ -1,0 +1,38 @@
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"></mat-progress-bar>
+</ng-template>
+<ng-container *ngIf="orgSvc.orgs$ | async as orgs else loading">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button
+            matTooltip="Add Orgs"
+            (click)="openAddOrgs()">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    <button mat-icon-button
+            matTooltip="Orgs Bin"
+            color="warn"
+            (click)="openOrgsBin()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </mat-toolbar>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           class="container">
+    <searchbar label="Search"
+               [minimum]="1"
+               (search)="orgSvc.searchOrgs($event)"
+               (clear)="orgSvc.getOrgs()"></searchbar>
+  </section>
+  <section *ngIf="orgs.length > 0"
+           fxLayout="row | wrap"
+           fxLayoutAlign="start start"
+           class="container">
+    <admin-org-card *ngFor="let o of orgs"
+                    [org]="o"
+                    (edit)="editOrg($event)"
+                    (delete)="toggleDeleted($event)"></admin-org-card>
+  </section>
+  <p class="mat-body-strong"
+     *ngIf="!(orgs.length > 0)">No Orgs Found</p>
+</ng-container>

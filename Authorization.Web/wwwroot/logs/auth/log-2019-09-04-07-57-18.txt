@@ -1,0 +1,26 @@
+ContextDetails
+
+User: ehowell
+Local IP: ::1
+Local Port: 5000
+Remote IP: ::1
+Remote Port: 62845
+Content Type: 
+URL: http://localhost:5000/api/test/microsoft/testAuthException
+
+Headers
+Connection : keep-alive
+Accept : text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Accept-Encoding : gzip, deflate, br
+Accept-Language : en-US,en;q=0.9
+Cookie : .AspNetCore.MicrosoftCookie=CfDJ8I7vgPqONj1Gjf9Ui-4P9HDeu-HJo5PxTs6g7PlWGR4OlV0fwk3GTJi6YxT2nGagJT7DicLK84g1xuNDw6BvErIy2JLhCq81O6hSDTlyzXg7KP-6VH0vmXTIBTiIaniBO_J32qyrEC6-XcUf76K78jXL0b8ItFsV9OPIGP8g9YP3bqBVRyedEjbcBlFz6uNijsUIPVTfv6_TYXIGhfIrnYisuSCVHyQRypsYGZrvQNKEzFth0epxBGSvNxSeOJPyw7dltYCvlwo4Q8YREYrmUHQZUPSLyaAy3Tc3fjKQj8HyFFjhYZRetjGpo-ljpTBpsPnYwQpo2OtgLs4x0sJyTmro7npZ_SMdIE0J5o4OBVuFluf2P8VosS-D3I9o1XUyF63vL1AIiOeDTwnTgXptn9Zvmb9PxvOxEgSNjFmtTr1WWqKpb34S4q229HnYW2dli7ZG5uAzjzcayKqImUJIyEqZuUDQaaZMgSLBVj9ywtPieiZX7IeRvYGg5egNyPzTEGeoqfhQKp4_fr3YlAJWNoJe7pV5dNh4yQhReetcTdcYVMGFnWl3eKoImcmttvPKZwJFzpHhxGExzVeNCXDgQKDd7BMbgRoAIbq_9ERdC-Wb0PjXLJ86JAjp_94aMBXfZ1OEQ9LttGOYqXZkWlzV_8FTXJt-VGL7anl1HJvHkSWpJ7hYmRoww3Ng9tImgXsWq0rBdsCVptMrvRByozRLwDND3cqh4PGO4NWpcjS74HZMyqLmwkLwPpI1MQ-j-TUpHEMsIKyDhGJo19cQ9OGCUHRMn6gZaLDtEULUaFbZP0F-u4wRkYnSRenqh2V27bFkKQ69ywbmIc_uzRZfc2aS1HiS9cDJUNnzIIgiUQNApmZRd5pvl_mijzt4EXgrHIzXvQ; .AspNetCore.Session=CfDJ8I7vgPqONj1Gjf9Ui%2B4P9HB2sPPSVmKYEFPtfzsbICa53b7pAdFkoz1zJDdwBbeDVng%2Bfrk0q2D6IviYbETIBAW8QFT9f73P4Ch%2Bi4VZ6gZNPO1D7efEiRttiyGRpkG6bGPIN%2BJLG4Uv%2BHds3ympxAqrlsYGhCHQBGN31XtZqjsp; .AspNetCore.Cookies=CfDJ8I7vgPqONj1Gjf9Ui-4P9HDIoNAPdYnVogY1xAqI8BRCkI5YGllPxGIgAvbMF6jKzOSch8fxl9IB1aWhccy1M1AmH6clgoLgn5jDC0xP2byYGNFr2-9wsxu7ixtSfMquCTeNnLXhXfyOC2f76DBzbhqVQjf25bbRo5KUV70yPc_R27C_Ihw3ZZXqvdPwiDyznir6mnMaeKHELDW0tbAO1hqAeEGY1E3b8kD_F6t6j7aiDPkatBkKs_hr7M8YVWeSCmhag9YsxulWMWotN7Z0VTKV5-SuAw7LnYXrRHaXUi6rXhveUNlm8XEqLCnhAwcIxMs1_bOdNaG4HWRQc2Id6Z9c9azfaYa3LJPJkxXpu8cuQXF5IPKL3QEK-Tn8NJN1IWGYHudO8r7oBMT2xaFGVeHvbewUZWRGBz9KV4pAcV0tEVe_4YrCuuhW9vYLy16JwOd5mkZ7n8TjfLYZwQfdKeI
+Host : localhost:5000
+User-Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36
+Upgrade-Insecure-Requests : 1
+Sec-Fetch-Mode : navigate
+Sec-Fetch-User : ?1
+DNT : 1
+Sec-Fetch-Site : none
+
+Exception Details
+Test authorization exception

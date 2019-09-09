@@ -1,0 +1,38 @@
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"></mat-progress-bar>
+</ng-template>
+<ng-container *ngIf="briefSvc.briefs$ | async as briefs else loading">
+  <mat-toolbar class="app-toolbar">
+    <button mat-icon-button
+            matTooltip="Add Brief"
+            (click)="openAddBriefs()">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    <button mat-icon-button
+            matTooltip="Briefs Bin"
+            color="warn"
+            (click)="openBriefsBin()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </mat-toolbar>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           class="container">
+    <searchbar label="Search"
+               [minimum]="1"
+               (search)="briefSvc.searchBriefs($event)"
+               (clear)="briefSvc.getBriefs()"></searchbar>
+  </section>
+  <section *ngIf="briefs.length > 0"
+           fxLayout="row | wrap"
+           fxLayoutAlign="start start"
+           class="container">
+    <brief-card *ngFor="let b of briefs"
+                [brief]="b"
+                (edit)="editBrief($event)"
+                (delete)="toggleDeleted($event)"></brief-card>
+  </section>
+  <p class="mat-body-strong"
+     *ngIf="!(briefs.length > 0)">No Briefs Found</p>
+</ng-container>

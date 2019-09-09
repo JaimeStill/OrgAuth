@@ -1,0 +1,49 @@
+<button mat-button
+        [disabled]="pending"
+        [style.margin.px]="8"
+        (click)="save.emit(orgUsers)">
+  Save
+</button>
+<section fxLayout="row | wrap"
+         fxLayoutAlign="start start">
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxFlex
+           [style.margin-right.px]="4">
+    <p class="mat-title">Available</p>
+    <section cdkDropList
+             #list="cdkDropList"
+             [cdkDropListData]="users"
+             [cdkDropListConnectedTo]="[selected]"
+             class="container drop-container"
+             (cdkDropListDropped)="drop($event)">
+      <section *ngFor="let u of users"
+               class="background card container elevated clickable"
+               cdkDrag>
+        <div class="drag-placeholder"
+             *cdkDragPlaceholder></div>
+        <p>{{u.userName}}</p>
+      </section>
+    </section>
+  </section>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxFlex
+           [style.margin-left.px]="4">
+    <p class="mat-title">Assigned</p>
+    <section cdkDropList
+             #selected="cdkDropList"
+             [cdkDropListData]="orgUsers"
+             [cdkDropListConnectedTo]="[list]"
+             class="container drop-container"
+             (cdkDropListDropped)="drop($event)">
+      <section *ngFor="let u of orgUsers"
+               class="background card container elevated clickable"
+               cdkDrag>
+        <div class="drag-placeholder"
+             *cdkDragPlaceholder></div>
+        <p>{{u.userName}}</p>
+      </section>
+    </section>
+  </section>
+</section>

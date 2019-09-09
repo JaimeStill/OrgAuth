@@ -1,0 +1,33 @@
+<div class="mat-typography">
+  <h2 mat-dialog-title>Admin - Edit User</h2>
+  <mat-dialog-content>
+    <section fxLayout="column"
+             fxLayoutAlign="start stretch"
+             class="container">
+      <p class="mat-body-strong">{{user.guid}}</p>
+      <p class="color warn"
+         *ngIf="!(validUserName)">This username is already taken!</p>
+      <p *ngIf="validUserName">This username is available!</p>
+      <section fxLayout="row"
+               fxLayoutAlign="start center">
+        <mat-form-field fxFlex>
+          <input matInput
+                 placeholder="Username"
+                 [(ngModel)]="user.userName"
+                 #userInput>
+        </mat-form-field>
+        <mat-icon color="primary" *ngIf="validUserName">check_circle_outline</mat-icon>
+        <mat-icon color="warn" *ngIf="!(validUserName)">error_outline</mat-icon>
+      </section>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            color="primary"
+            [disabled]="!(validUserName)"
+            (click)="updateUser()">Save</button>
+    <button mat-button
+            mat-dialog-close
+            color="warn">Cancel</button>
+  </mat-dialog-actions>
+</div>
