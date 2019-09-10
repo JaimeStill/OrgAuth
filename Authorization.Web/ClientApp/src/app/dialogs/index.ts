@@ -6,6 +6,7 @@ import { UserBinDialog } from './user/user-bin.dialog';
 import { UserSettingsDialog } from './user/user-settings.dialog';
 
 import { BriefDialogs } from './brief';
+import { ItemDialogs } from './item';
 import { OrgDialogs } from './org';
 
 export const Dialogs = [
@@ -15,6 +16,7 @@ export const Dialogs = [
   UserBinDialog,
   UserSettingsDialog,
   ...BriefDialogs,
+  ...ItemDialogs,
   ...OrgDialogs
 ];
 
@@ -26,4 +28,5 @@ export * from './user/user-bin.dialog';
 export * from './user/user-settings.dialog';
 
 export * from './brief';
+export * from './item';
 export * from './org';

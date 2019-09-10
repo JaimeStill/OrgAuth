@@ -36,12 +36,14 @@ namespace Authorization.Data.Extensions
 
             return items;
         }
+
         public static async Task<List<ItemCaveat>> GetItemCaveats(this AppDbContext db, int itemId, int userId)
         {
             var briefIds = await db.GetUserBriefIds(userId);
 
             var itemCaveats = await db.ItemCaveats
                 .Include(x => x.Item)
+                .Include(x => x.Brief)
                 .Where(x =>
                     briefIds.Contains(x.BriefId) &&
                     x.ItemId == itemId
@@ -58,6 +60,7 @@ namespace Authorization.Data.Extensions
 
             var itemCaveats = await db.ItemCaveats
                 .Include(x => x.Item)
+                .Include(x => x.Brief)
                 .Where(x =>
                     briefIds.Contains(x.BriefId) && 
                     x.ItemId == itemId &&

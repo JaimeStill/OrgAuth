@@ -1,0 +1,44 @@
+<div class="mat-typography">
+  <h2 mat-dialog-title>
+    <span *ngIf="caveat.id > 0">Edit Item Caveat</span>
+    <span *ngIf="!(caveat.id > 0)">Add Item Caveat</span>
+  </h2>
+  <mat-dialog-content>
+    <ng-template #loading>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="briefSvc.briefs$ | async as briefs else loading">
+      <section fxLayout="column"
+               fxLayoutAlign="start stretch"
+               class="container">
+        <mat-form-field>
+          <mat-label>Brief</mat-label>
+          <mat-select [(ngModel)]="caveat.briefId">
+            <mat-option *ngFor="let b of briefs"
+                        [value]="b.id">{{b.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput
+                 [(ngModel)]="caveat.name" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Details</mat-label>
+          <textarea matInput
+                    mat-autosize
+                    [(ngModel)]="caveat.details"
+                    [matAutosizeMinRows]="4"
+                    [matAutosizeMaxRows]="8"></textarea>
+        </mat-form-field>
+      </section>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            (click)="saveCaveat()">Save</button>
+    <button mat-button
+            mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</div>

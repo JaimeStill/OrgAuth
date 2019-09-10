@@ -1,0 +1,52 @@
+<section class="background card elevated"
+         fxLayout="column"
+         fxLayoutAlign="start stretch"
+         [style.width.px]="size">
+  <section fxLayout="row"
+           fxLayoutAlign="start center">
+    <section fxLayout="column"
+             fxLayoutAlign="start stretch"
+             fxFlex>
+      <p class="mat-body-strong">{{item.name}}</p>
+    </section>
+    <section class="background stacked"
+             fxLayout="column"
+             fxLayoutAlign="space-evenly center"
+             *ngIf="authorized">
+      <button mat-icon-button
+              matTooltip="Edit"
+              (click)="edit.emit(item)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button
+              matTooltip="Add Caveat"
+              (click)="addCaveat.emit(item)">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+      <button mat-icon-button
+              matTooltip="Delete"
+              color="warn"
+              (click)="delete.emit(item)">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </section>
+  </section>
+  <ng-template #loading>
+    <mat-progress-bar mode="indeterminate"
+                      color="accent"></mat-progress-bar>
+  </ng-template>
+  <ng-container *ngIf="itemSvc.itemCaveats$ | async as caveats else loading">
+    <section *ngIf="caveats.length > 0"
+             class="background stacked"
+             fxLayout="column"
+             fxLayoutAlign="start stretch">
+      <p class="mat-subheading-2">Caveats</p>
+      <item-caveat-card *ngFor="let caveat of caveats"
+                        [caveat]="caveat"
+                        [size]="caveatSize"
+                        [authorized]="authorized"
+                        (edit)="editCaveat.emit($event)"
+                        (delete)="deleteCaveat.emit($event)"></item-caveat-card>
+    </section>
+  </ng-container>
+</section>

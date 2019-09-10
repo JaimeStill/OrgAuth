@@ -25,7 +25,7 @@ namespace Authorization.Auth
                 .Select(x => x.Brief)
                 .OrderBy(x => x.Name)
                 .ToListAsync();
-            
+
             var roles = await db.OrgUserRoles
                 .Where(x =>
                     x.OrgUser.UserId == user.Id &&
@@ -43,6 +43,46 @@ namespace Authorization.Auth
                 Roles = roles
             };
         }
+
+        public static async Task<AuthContext> GetDefaultContext(this AppDbContext db, IUserProvider provider)
+        {
+            var user = await db.Users
+              .FirstOrDefaultAsync(x => x.Guid == provider.CurrentUser.Guid.Value);
+
+            if (!user.DefaultOrgId.HasValue)
+            {
+                throw new AppException($"{user.UserName} does not have a default org context", ExceptionType.Validation);
+            }
+
+            var org = await db.Orgs.FindAsync(user.DefaultOrgId.Value);
+
+            var briefs = await db.UserBriefs
+              .Where(x =>
+                !x.Brief.IsDeleted &&
+                x.UserId == user.Id
+              )
+              .Select(x => x.Brief)
+              .OrderBy(x => x.Name)
+              .ToListAsync();
+
+            var roles = await db.OrgUserRoles
+              .Where(x =>
+                x.OrgUser.UserId == user.Id &&
+                x.OrgUser.OrgId == org.Id
+              )
+              .Select(x => x.UserRole.Role)
+              .OrderBy(x => x.Name)
+              .ToListAsync();
+
+            return new AuthContext
+            {
+                Org = org,
+                User = user,
+                Briefs = briefs,
+                Roles = roles
+            };
+        }
+
         public static async Task<T> Authorize<T>(this AppDbContext db, IUserProvider provider, Func<AppDbContext, Task<T>> exec)
         {
             if (await db.ValidateAdmin(provider.CurrentUser.Guid.Value))

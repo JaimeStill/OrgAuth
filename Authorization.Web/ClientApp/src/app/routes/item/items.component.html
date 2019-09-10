@@ -1,0 +1,46 @@
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"></mat-progress-bar>
+</ng-template>
+<ng-container *ngIf="itemSvc.items$ | async as items else loading">
+  <mat-toolbar class="app-toolbar">
+    <span>{{auth.org.name}} Items</span>
+    <ng-container *ngIf="authorized">
+      <button mat-icon-button
+              matTooltip="Add Item"
+              (click)="openAddItem()">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+      <button mat-icon-button
+              matTooltip="Items Bin"
+              color="warn"
+              (click)="openItemsBin()">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </ng-container>
+  </mat-toolbar>
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           class="container">
+    <searchbar label="Search Items"
+               [minimum]="1"
+               (search)="itemSvc.searchItems(auth.org.name, $event)"
+               (clear)="itemSvc.getItems(auth.org.name)"></searchbar>
+  </section>
+  <section *ngIf="items.length > 0"
+           fxLayout="row | wrap"
+           fxLayoutAlign="start start"
+           class="container">
+    <item-card *ngFor="let item of items"
+               [item]="item"
+               [authorized]="authorized"
+               [auth]="auth"
+               (edit)="editItem($event)"
+               (delete)="deleteItem($event)"
+               (addCaveat)="addCaveat($event)"
+               (editCaveat)="editCaveat($event)"
+               (deleteCaveat)="deleteCaveat($event)"></item-card>
+  </section>
+  <p class="mat-body-strong"
+     *ngIf="!(items.length > 0)">No Items Found</p>
+</ng-container>

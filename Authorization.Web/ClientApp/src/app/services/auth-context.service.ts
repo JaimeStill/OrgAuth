@@ -16,6 +16,23 @@ export class AuthContextService {
     private snacker: SnackerService
   ) { }
 
+  readAuthContext = () => this.auth.value;
+
+  getDefaultContext = (): Promise<AuthContext> =>
+    new Promise((resolve) => {
+      this.http.get<AuthContext>(`/api/auth/getDefaultContext`)
+        .subscribe(
+          data => {
+            this.auth.next(data);
+            resolve(data);
+          },
+          err => {
+            this.snacker.sendErrorMessage(err.error);
+            resolve(null);
+          }
+        )
+    });
+
   getAuthContext = (orgId: number) => this.http.get<AuthContext>(`/api/auth/getAuthContext/${orgId}`)
     .subscribe(
       data => this.auth.next(data),

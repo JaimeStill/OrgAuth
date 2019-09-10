@@ -1,0 +1,28 @@
+<section class="background card"
+         fxLayout="row"
+         fxLayoutAlign="start stretch"
+         [style.width.px]="size">
+  <section fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxFlex>
+    <p class="mat-body-strong">{{caveat.brief.name}}</p>
+    <p *ngIf="caveat.name">{{caveat.name}}</p>
+    <p *ngIf="caveat.details">{{caveat.details}}</p>
+  </section>
+  <section class="background stacked"
+           fxLayout="column"
+           fxLayoutAlign="space-evenly center"
+           *ngIf="authorized">
+    <button mat-icon-button
+            matTooltip="Edit"
+            (click)="edit.emit(caveat)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button
+            matTooltip="Delete"
+            color="warn"
+            (click)="delete.emit(caveat)">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </section>
+</section>

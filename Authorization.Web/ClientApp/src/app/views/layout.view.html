@@ -43,6 +43,11 @@
                     icon="account_circle"
                     [state]="state"></panel-link>
         <mat-divider></mat-divider>
+        <panel-link link="/items"
+                    label="Org Items"
+                    icon="storefront"
+                    [state]="state"
+                    *ngIf="auth.org && auth.roles.length > 0"></panel-link>
         <panel-link link="/admin"
                     label="App Settings"
                     icon="settings"

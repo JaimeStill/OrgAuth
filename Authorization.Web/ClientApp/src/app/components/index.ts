@@ -5,6 +5,7 @@ import { PanelLinkComponent } from './sidepanel/panel-link.component';
 import { SidepanelComponent } from './sidepanel/sidepanel.component';
 
 import { BriefComponents } from './brief';
+import { ItemComponents } from './item';
 import { OrgComponents } from './org';
 import { RoleComponents } from './role';
 import { UserComponents } from './user';
@@ -16,6 +17,7 @@ export const Components = [
   PanelLinkComponent,
   SidepanelComponent,
   ...BriefComponents,
+  ...ItemComponents,
   ...OrgComponents,
   ...RoleComponents,
   ...UserComponents

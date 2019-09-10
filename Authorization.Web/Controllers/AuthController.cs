@@ -25,6 +25,9 @@ namespace Authorization.Web.Controllers
         public async Task<AuthContext> GetAuthContext([FromRoute]int orgId) => await db.GetAuthContext(provider, orgId);
 
         [HttpGet("[action]")]
+        public async Task<AuthContext> GetDefaultContext() => await db.GetDefaultContext(provider);
+
+        [HttpGet("[action]")]
         public async Task<bool> ValidateAdmin() => await db.ValidateAdmin(this.provider.CurrentUser.Guid.Value);
 
         [HttpGet("[action]/{org}")]

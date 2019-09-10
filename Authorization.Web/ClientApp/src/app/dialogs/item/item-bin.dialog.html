@@ -1,0 +1,38 @@
+<div class="mat-typography">
+  <h2 mat-dialog-title>Item Bin</h2>
+  <mat-dialog-content>
+    <ng-template #loading>
+      <mat-progress-bar mode="indeterminate"
+                        color="accent"></mat-progress-bar>
+    </ng-template>
+    <ng-container *ngIf="itemSvc.items$ | async as items else loading">
+      <section *ngIf="items.length > 0"
+               fxLayout="column"
+               fxLayoutAlign="start stretch"
+               class="container">
+        <section *ngFor="let i of items"
+                 class="background card elevated"
+                 fxLayout="column"
+                 fxLayoutAlign="start stretch">
+          <section fxLayout="row"
+                   fxLayoutAlign="start center"
+                   class="container">
+            <p class="mat-title"
+               fxFlex>{{i.name}}</p>
+            <button mat-button
+                    color="warn"
+                    (click)="removeItem(i)">Delete</button>
+            <button mat-button
+                    (click)="restoreItem(i)">Restore</button>
+          </section>
+        </section>
+      </section>
+      <p *ngIf="!(items.length > 0)"
+         class="mat-title">Recycle Bin is Empty</p>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</div>
