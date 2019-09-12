@@ -39,7 +39,9 @@
              (cdkDropListDropped)="drop($event)">
       <section *ngFor="let b of userBriefs"
                class="background card container elevated clickable"
-               cdkDrag>
+               cdkDrag
+               [style.color]="b.foreground"
+               [style.background-color]="b.background">
         <div class="drag-placeholder"
              *cdkDragPlaceholder></div>
         <p>{{b.name}}</p>

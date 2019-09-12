@@ -4,6 +4,8 @@ import { UserBrief } from './user-brief';
 export interface Brief {
   id: number;
   name: string;
+  foreground: string;
+  background: string;
   isDeleted: boolean;
 
   caveats: Caveat[];

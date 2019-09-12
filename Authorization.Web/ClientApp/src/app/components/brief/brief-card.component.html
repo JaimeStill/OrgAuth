@@ -1,10 +1,12 @@
 <section fxLayout="row"
          fxLayoutAlign="start center"
          class="background card elevated"
-         [style.width.px]="size">
+         [style.width.px]="size"
+         [style.background-color]="brief.background">
   <section fxLayout="column"
            fxLayoutAlign="start stretch"
-           fxFlex>
+           fxFlex
+           [style.color]="brief.foreground">
     <p class="mat-body-strong">{{brief.name}}</p>
   </section>
   <section class="background stacked"

@@ -5,7 +5,9 @@
   <section fxLayout="column"
            fxLayoutAlign="start stretch"
            fxFlex>
-    <p class="mat-body-strong">{{caveat.brief.name}}</p>
+    <p class="mat-body-strong container"
+       [style.color]="caveat.brief.foreground"
+       [style.background-color]="caveat.brief.background">{{caveat.brief.name}}</p>
     <p *ngIf="caveat.name">{{caveat.name}}</p>
     <p *ngIf="caveat.details">{{caveat.details}}</p>
   </section>

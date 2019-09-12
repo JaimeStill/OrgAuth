@@ -12,6 +12,24 @@
         <input matInput
                [(ngModel)]="brief.name" />
       </mat-form-field>
+      <mat-form-field>
+        <mat-label>Foreground Color</mat-label>
+        <input matInput
+               [(ngModel)]="brief.foreground" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Background Color</mat-label>
+        <input matInput
+               [(ngModel)]="brief.background" />
+      </mat-form-field>
+      <p class="mat-title">Brief Preview</p>
+      <section class="container"
+               fxLayout="column"
+               fxLayoutAlign="center center"
+               [style.color]="brief.foreground"
+               [style.background-color]="brief.background">
+        <p class="mat-subheading-2">{{brief.name}}</p>
+      </section>
     </section>
   </mat-dialog-content>
   <mat-dialog-actions>

@@ -12,18 +12,29 @@
                class="container">
         <section *ngFor="let b of briefs"
                  class="background card elevated"
-                 fxLayout="column"
-                 fxLayoutAlign="start stretch">
-          <section fxLayout="row"
-                   fxLayoutAlign="start center"
-                   class="container">
-            <p class="mat-title"
-               fxFlex>{{b.name}}</p>
-            <button mat-button
+                 fxLayout="row"
+                 fxLayoutAlign="start center"
+                 [style.background-color]="b.background">
+          <section fxLayout="column"
+                   fxLayoutAlign="start stretch"
+                   fxFlex
+                   [style.color]="b.foreground">
+            <p class="mat-title">{{b.name}}</p>
+          </section>
+          <section class="background stacked"
+                   fxLayout="column"
+                   fxLayoutAlign="space-evenly center">
+            <button mat-icon-button
+                    matTooltip="Restore"
+                    (click)="restoreBrief(b)">
+              <mat-icon>restore_from_trash</mat-icon>
+            </button>
+            <button mat-icon-button
+                    matTooltip="Delete"
                     color="warn"
-                    (click)="removeBrief(b)">Delete</button>
-            <button mat-button
-                    (click)="restoreBrief(b)">Restore</button>
+                    (click)="removeBrief(b)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
           </section>
         </section>
       </section>
