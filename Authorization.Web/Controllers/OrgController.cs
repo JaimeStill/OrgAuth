@@ -60,7 +60,7 @@ namespace Authorization.Web.Controllers
         public async Task RemoveOrg([FromBody]Org org) => await db.RemoveOrg(org);
 
         [HttpPost("[action]/{orgId}")]
-        public async Task SaveOrgUsers([FromRoute]int orgId, [FromBody]List<OrgUser> orgUsers) => await db.SaveOrgUsers(orgId, orgUsers);
+        public async Task<List<string>> SaveOrgUsers([FromRoute]int orgId, [FromBody]List<OrgUser> orgUsers) => await db.SaveOrgUsers(orgId, orgUsers);
 
         [HttpPost("[action]/{orgId}/{userId}")]
         public async Task SaveOrgUserRoles([FromRoute]int orgId, [FromRoute]int userId, [FromBody]List<UserRole> userRoles) =>

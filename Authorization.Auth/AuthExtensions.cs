@@ -134,7 +134,7 @@ namespace Authorization.Auth
         public static async Task<T> Authorize<T>(this AppDbContext db, IUserProvider provider, string org, Func<AppDbContext, Task<T>> exec, params string[] roles)
         {
             if (roles.Count() < 1)
-                throw new Exception("A role must be provided for Org authorization");
+                throw new AppException("A role must be provided for Org authorization", ExceptionType.Validation);
 
             if (await db.ValidateRole(org, provider.CurrentUser.Guid.Value, roles))
             {
@@ -149,7 +149,7 @@ namespace Authorization.Auth
         public static async Task Authorize(this AppDbContext db, IUserProvider provider, string org, Func<AppDbContext, Task> exec, params string[] roles)
         {
             if (roles.Count() < 1)
-                throw new Exception("A role must be provided for Org authorization");
+                throw new AppException("A role must be provided for Org authorization", ExceptionType.Validation);
 
             if (await db.ValidateRole(org, provider.CurrentUser.Guid.Value, roles))
             {

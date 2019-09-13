@@ -59,7 +59,7 @@ export class OrgUserRolesComponent implements OnInit {
   saveOrgUserRoles = async (userRoles: UserRole[]) => {
     this.uploading = true;
 
-    const res = await this.orgSvc.saveOrgUserRoles(this.org.id, this.user.id, userRoles);
+    const res = await this.orgSvc.saveOrgUserRoles(this.org.id, this.user, userRoles);
 
     this.uploading = false;
 

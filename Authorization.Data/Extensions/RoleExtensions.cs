@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Authorization.Core;
 using Authorization.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -110,12 +111,12 @@ namespace Authorization.Data.Extensions
         {
             if (userRole.UserId < 1)
             {
-                throw new Exception("The provided user role lacks a user");
+                throw new AppException("The provided user role lacks a user", ExceptionType.Validation);
             }
 
             if (userRole.RoleId < 1)
             {
-                throw new Exception("The provided user role lacks a role");
+                throw new AppException("The provided user role lacks a role", ExceptionType.Validation);
             }
 
             return true;

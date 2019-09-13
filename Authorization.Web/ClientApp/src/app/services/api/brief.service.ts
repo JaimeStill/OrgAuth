@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { SnackerService } from '../snacker.service';
+import { SocketService } from '../sockets/socket.service';
 
 import {
   Brief,
@@ -25,7 +26,8 @@ export class BriefService {
 
   constructor(
     private http: HttpClient,
-    private snacker: SnackerService
+    private snacker: SnackerService,
+    private socket: SocketService
   ) { }
 
   clearBriefs = () => this.briefs.next(null);
@@ -146,12 +148,13 @@ export class BriefService {
         );
     });
 
-  saveUserBriefs = (userId: number, userBriefs: UserBrief[]): Promise<boolean> =>
+  saveUserBriefs = (user: User, userBriefs: UserBrief[]): Promise<boolean> =>
     new Promise((resolve) => {
-      this.http.post(`/api/brief/saveUserBriefs/${userId}`, userBriefs)
+      this.http.post(`/api/brief/saveUserBriefs/${user.id}`, userBriefs)
         .subscribe(
           () => {
             this.snacker.sendSuccessMessage(`User Briefs successfully saved`);
+            this.socket.triggerAuth(user.socketName);
             resolve(true);
           },
           err => {

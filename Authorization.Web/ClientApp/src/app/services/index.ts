@@ -8,6 +8,8 @@ import { ThemeService } from './theme.service';
 
 import { UserService } from './api/user.service';
 
+import { SocketService } from './sockets/socket.service';
+
 export const Services = [
   AuthContextService,
   BannerService,
@@ -16,7 +18,8 @@ export const Services = [
   SidepanelService,
   SnackerService,
   ThemeService,
-  UserService
+  UserService,
+  SocketService
 ];
 
 export * from './auth-context.service';
@@ -35,3 +38,4 @@ export * from './api/role.service';
 export * from './api/user.service';
 
 export * from './sockets/group-socket.service';
+export * from './sockets/socket.service';

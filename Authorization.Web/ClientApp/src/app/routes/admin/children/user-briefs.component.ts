@@ -52,7 +52,7 @@ export class UserBriefsComponent implements OnInit {
       userId: this.user.id
     }));
 
-    const res = await this.briefSvc.saveUserBriefs(this.user.id, briefs);
+    const res = await this.briefSvc.saveUserBriefs(this.user, briefs);
 
     this.uploading = false;
 

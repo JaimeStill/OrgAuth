@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { SnackerService } from '../snacker.service';
+import { SocketService } from '../sockets/socket.service';
 
 import {
   Role,
+  User,
   UserRole
 } from '../../models';
 
@@ -20,7 +22,8 @@ export class RoleService {
 
   constructor(
     private http: HttpClient,
-    private snacker: SnackerService
+    private snacker: SnackerService,
+    private socket: SocketService
   ) { }
 
   clearRoles = () => this.roles.next(null);
@@ -65,12 +68,13 @@ export class RoleService {
         );
     });
 
-  saveUserRoles = (userId: number, userRoles: UserRole[]): Promise<boolean> =>
+  saveUserRoles = (user: User, userRoles: UserRole[]): Promise<boolean> =>
     new Promise((resolve) => {
-      this.http.post(`/api/role/saveUserRoles/${userId}`, userRoles)
+      this.http.post(`/api/role/saveUserRoles/${user.id}`, userRoles)
         .subscribe(
           () => {
             this.snacker.sendSuccessMessage('User Roles successfully saved');
+            this.socket.triggerAuth(user.socketName);
             resolve(true);
           },
           err => {

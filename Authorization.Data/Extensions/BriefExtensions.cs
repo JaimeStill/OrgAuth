@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Authorization.Data.Entities;
+using Authorization.Core;
 
 namespace Authorization.Data.Extensions
 {
@@ -164,7 +165,7 @@ namespace Authorization.Data.Extensions
         {
             if (string.IsNullOrEmpty(brief.Name))
             {
-                throw new Exception("A brief must have a name");
+                throw new AppException("A brief must have a name", ExceptionType.Validation);
             }
 
             var check = await db.Briefs
@@ -175,7 +176,7 @@ namespace Authorization.Data.Extensions
 
             if (check != null)
             {
-                throw new Exception("The provided brief already exists");
+                throw new AppException("The provided brief already exists", ExceptionType.Validation);
             }
 
             return true;
@@ -195,12 +196,12 @@ namespace Authorization.Data.Extensions
         {
             if (brief.BriefId < 1)
             {
-                throw new Exception("The provided user brief lacks a brief");
+                throw new AppException("The provided user brief lacks a brief", ExceptionType.Validation);
             }
 
             if (brief.UserId < 1)
             {
-                throw new Exception("The provided user brief lacks a user");
+                throw new AppException("The provided user brief lacks a user", ExceptionType.Validation);
             }
 
             return true;

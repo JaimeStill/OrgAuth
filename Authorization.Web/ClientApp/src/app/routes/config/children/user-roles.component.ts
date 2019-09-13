@@ -52,7 +52,7 @@ export class UserRolesComponent implements OnInit {
       userId: this.user.id
     }));
 
-    const res = await this.role.saveUserRoles(this.user.id, roles);
+    const res = await this.role.saveUserRoles(this.user, roles);
 
     this.uploading = false;
 

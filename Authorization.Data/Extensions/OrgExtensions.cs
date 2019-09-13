@@ -146,7 +146,7 @@ namespace Authorization.Data.Extensions
             await db.SaveChangesAsync();
         }
 
-        public static async Task SaveOrgUsers(this AppDbContext db, int orgId, List<OrgUser> orgUsers)
+        public static async Task<List<string>> SaveOrgUsers(this AppDbContext db, int orgId, List<OrgUser> orgUsers)
         {
             if (orgUsers.Validate())
             {
@@ -174,7 +174,22 @@ namespace Authorization.Data.Extensions
                 db.OrgUserRoles.RemoveRange(removeOrgRoles);
                 await db.OrgUsers.AddRangeAsync(newUsers);
                 await db.SaveChangesAsync();
+
+                var affectedUserIds = removeUsers
+                    .Select(x => x.UserId)
+                    .Concat(newUsers.Select(x => x.UserId))
+                    .ToList();
+
+                var affectedUsers = await db.Users
+                    .Where(x => affectedUserIds.Contains(x.Id))
+                    .Select(x => x.SocketName)
+                    .Distinct()
+                    .ToListAsync();
+
+                return affectedUsers;
             }
+
+            return null;
         }
 
         public static async Task SaveOrgUserRoles(this AppDbContext db, int orgId, int userId, List<UserRole> userRoles)
@@ -228,7 +243,7 @@ namespace Authorization.Data.Extensions
         {
             if (string.IsNullOrEmpty(org.Name))
             {
-                throw new Exception("An org must have a name");
+                throw new AppException("An org must have a name", ExceptionType.Validation);
             }
             
             if (!await db.ValidateOrgName(org))
@@ -253,12 +268,12 @@ namespace Authorization.Data.Extensions
         {
             if (orgUser.UserId < 1)
             {
-                throw new Exception("The provided org user lacks a user");
+                throw new AppException("The provided org user lacks a user", ExceptionType.Validation);
             }
 
             if (orgUser.OrgId < 1)
             {
-                throw new Exception("The provided org user lacks an org");
+                throw new AppException("The provided org user lacks an org", ExceptionType.Validation);
             }
 
             return true;
@@ -278,12 +293,12 @@ namespace Authorization.Data.Extensions
         {
             if (orgUserRole.OrgUserId < 1)
             {
-                throw new Exception("The provided org user role lacks an org user");
+                throw new AppException("The provided org user role lacks an org user", ExceptionType.Validation);
             }
 
             if (orgUserRole.UserRoleId < 1)
             {
-                throw new Exception("The provided org user role lacks a user role");
+                throw new AppException("The provided org user role lacks a user role", ExceptionType.Validation);
             }
 
             return true;

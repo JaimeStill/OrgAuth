@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Authorization.Core;
 using Authorization.Core.Extensions;
 using Authorization.Data.Entities;
 using Authorization.Identity;
@@ -126,7 +127,7 @@ namespace Authorization.Data.Extensions
                     IsAdmin = false,
                     LastName = adUser.Surname,
                     Sidepanel = "thin",
-                    SocketName = $@"{adUser.GetDomainPrefix()}\{adUser.SamAccountName}",
+                    SocketName = adUser.SamAccountName.UrlEncode(),
                     Theme = "light-blue",
                     UserName = adUser.SamAccountName.UrlEncode()
                 };
@@ -148,7 +149,7 @@ namespace Authorization.Data.Extensions
             }
             else
             {
-                throw new Exception("The provided username is already in use");
+                throw new AppException("The provided username is already in use", ExceptionType.Validation);
             }
         }
 
@@ -160,7 +161,7 @@ namespace Authorization.Data.Extensions
             user.Email = adUser.UserPrincipalName;
             user.FirstName = adUser.GivenName;
             user.LastName = adUser.Surname;
-            user.SocketName = $@"{adUser.GetDomainPrefix()}\{adUser.SamAccountName}";
+            user.SocketName = adUser.SamAccountName.UrlEncode();
 
             await db.SaveChangesAsync();
             return user;
@@ -193,7 +194,7 @@ namespace Authorization.Data.Extensions
 
             if (check != null)
             {
-                throw new Exception("The provided user already has an account");
+                throw new AppException("The provided user already has an account", ExceptionType.Validation);
             }
 
             return true;

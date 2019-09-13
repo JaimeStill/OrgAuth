@@ -5,6 +5,7 @@ using Authorization.Data.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Authorization.Core;
 
 namespace dbseeder
 {
@@ -18,7 +19,7 @@ namespace dbseeder
                 Console.WriteLine("[environmentVariable] - an environment variable that points to a connection string");
                 Console.WriteLine("-c [connectionString] - Option -c with the connection string directly specified");
                 Console.WriteLine();
-                throw new Exception("No connection string provided");
+                throw new AppException("No connection string provided", ExceptionType.Validation);
             }
 
             var arg = args.FirstOrDefault();

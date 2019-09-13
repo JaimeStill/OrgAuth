@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { SnackerService } from '../snacker.service';
+import { SocketService } from '../sockets/socket.service';
 
 import {
   Org,
@@ -28,7 +29,8 @@ export class OrgService {
 
   constructor(
     private http: HttpClient,
-    private snacker: SnackerService
+    private snacker: SnackerService,
+    private socket: SocketService
   ) { }
 
   clearUsers = () => this.users.next(null);
@@ -156,10 +158,11 @@ export class OrgService {
 
   saveOrgUsers = (orgId: number, orgUsers: OrgUser[]): Promise<boolean> =>
     new Promise((resolve) => {
-      this.http.post(`/api/org/saveOrgUsers/${orgId}`, orgUsers)
+      this.http.post<string[]>(`/api/org/saveOrgUsers/${orgId}`, orgUsers)
         .subscribe(
-          () => {
+          users => {
             this.snacker.sendSuccessMessage(`Org users successfully updated`);
+            users && users.forEach(u => this.socket.triggerAuth(u));
             resolve(true);
           },
           err => {
@@ -169,12 +172,13 @@ export class OrgService {
         );
     });
 
-  saveOrgUserRoles = (orgId: number, userId: number, userRoles: UserRole[]): Promise<boolean> =>
+  saveOrgUserRoles = (orgId: number, user: User, userRoles: UserRole[]): Promise<boolean> =>
     new Promise((resolve) => {
-      this.http.post(`/api/org/saveOrgUserRoles/${orgId}/${userId}`, userRoles)
+      this.http.post(`/api/org/saveOrgUserRoles/${orgId}/${user.id}`, userRoles)
         .subscribe(
           () => {
             this.snacker.sendSuccessMessage(`Org user roles successfully updated`);
+            this.socket.triggerAuth(user.socketName);
             resolve(true);
           },
           err => {

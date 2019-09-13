@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Authorization.Data.Entities;
 using System.Text;
+using Authorization.Core;
 
 namespace Authorization.Data.Extensions
 {
@@ -46,7 +47,7 @@ namespace Authorization.Data.Extensions
         {
             if (caveat.BriefId < 1)
             {
-                throw new Exception("A caveat must be linked to a briefing");
+                throw new AppException("A caveat must be linked to a briefing", ExceptionType.Validation);
             }
             return true;
         }

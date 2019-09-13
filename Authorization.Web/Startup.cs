@@ -17,6 +17,8 @@ using Authorization.Data;
 using Authorization.Identity;
 using Authorization.Web.Hubs;
 using Authorization.Identity.Mock;
+using Microsoft.AspNetCore.SignalR;
+using Authorization.Web.Infrastructure;
 
 namespace Authorization.Web
 {
@@ -65,7 +67,13 @@ namespace Authorization.Web
                 }
             });
 
-            services.AddSignalR();
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
+
+            services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
+
             services.AddSingleton<SocketGroupProvider>();
             services.AddSingleton(new BannerConfig
             {
@@ -138,6 +146,7 @@ namespace Authorization.Web
 
             app.UseSignalR(routes =>
             {
+                routes.MapHub<SocketHub>("/core-socket");
                 routes.MapHub<GroupHub>("/group-socket");
             });
 

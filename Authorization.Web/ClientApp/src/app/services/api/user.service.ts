@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { SnackerService } from '../snacker.service';
+import { SocketService } from '../sockets/socket.service';
 
 import {
   AdUser,
@@ -25,7 +26,8 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private snacker: SnackerService
+    private snacker: SnackerService,
+    private socket: SocketService
   ) { }
 
   getDomainUsers = () => this.http.get<AdUser[]>(`/api/user/getDomainUsers`)
@@ -173,6 +175,7 @@ export class UserService {
             `Admin permissions granted to ${user.userName}`;
 
             this.snacker.sendSuccessMessage(message);
+            this.socket.triggerAuth(user.socketName);
             resolve(true);
           },
           err => {
