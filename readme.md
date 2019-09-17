@@ -14,7 +14,7 @@
 * [Angular Layout Restriction](#angular-layout-restriction)
 
 ## Build and Run
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)
 
 Clone this repository:
 
@@ -45,7 +45,7 @@ The application should now be hosted at http://localhost:5000.
 [![org-selector](./.resources/gifs/01-org-selector.gif)](./.resources/gifs/01-org-selector.gif)
 
 ## Overview
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)
 
 The intent of this repository is to demonstrate how to perform the following:
 * Present an application from the viewpoint of an organization in an environment where many organizations may operate within the same application instance
@@ -59,16 +59,16 @@ In the built-in [Role-Based Authorization](https://docs.microsoft.com/en-us/aspn
 The following sections describe the infrastructure and practices established to not just enable this sort of authorization strategy, but to make the same infrastructure compatible with Angular Route authorization.
 
 ### Config
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)
 
 
 ## Authorization Infrastructure
-[Back to Top](#org-based-role-authorization)  
+[Back to Top](#organization-based-role-authorization)  
 
 This section outlines all of the infrastructure that has been written to facilitate Org-based Role Authorization. Each subsequent section deals with a particular facet of the Authorization, with each section that follows after relying on the previous infrastructure.
 
 ### Entity Framework
-[Back to Top](#org-based-role-authorization)  
+[Back to Top](#organization-based-role-authorization)  
 
 The entities that enable Org-Based Role Authorization are illustrated in the following diagram:
 
@@ -85,7 +85,7 @@ However, simply having a `Role` and belonging to an `Org` is not enough.
 An assigned `UserRole` must then be associated with an `OrgUser` assignment, specifying the `User` has a designated `Role` within an `Org`.
 
 ### Auth Library
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)  
 
 > The following infrastructure is defined in the [**Authorization.Auth**](./Authorization.Auth) library
 
@@ -109,7 +109,7 @@ When using Attribute-based authorization in <span>ASP.NET</span> Core, the polic
 > In addition to the infrastructure in this library, `AuthContext` is mapped to an `AuthContext` interface in the Angular [**models**](./Authorization.Web/ClientApp/src/app/models) folder.
 
 ### Auth Controller
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)  
 
 [**AuthController.cs**](./Authorization.Web/Controllers/AuthController.cs)
 
@@ -118,7 +118,7 @@ In order to retrieve a given `AuthContext` and to provide client-side route auth
 > The methods in this controller are exposed to Angular via a global `AuthContextService` service in the Angular [**services**](./Authorization.Web/ClientApp/src/app/services) folder
 
 ### SignalR
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)  
 
 When any of the authorization values associated with the current user are modified, it's imperative that the `AuthContext` is updated to reflect those changes. For instance, if an administrator removes a `User` from an `Org`, any associated `OrgUserRole` entries are removed, and they no longer have access to those `Org` resources. 
 
@@ -153,7 +153,7 @@ When the `http.post` call in the `saveUserRoles` function returns successfully, 
 When the `http.post` call in the `toggleUserAdmin` function returns successfully, `SocketService.triggerAuth` is executed, indicating that authorizations for a user have been updated.
 
 ## Caveat Framework
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)  
 
 Before showing how Authorization works, it's important to understand the kind of resources that would be protected at the `Org` level. The following diagram shows how the Caveat framework is structured:
 
@@ -181,7 +181,7 @@ In order to retrieve a collection of `Item` records that belong to an `Org`, as 
 > The Angular models and services for the above entities are defined in the [**models/api**](./Authorization.Web/ClientApp/src/app/models/api) and [**services/api**](./Authorization.Web/ClientApp/src/app/services/api) Angular folders, respectively.
 
 ## API Authorization
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)
 
 API Authorization is purely driven by the `Authorize` methods defined in the [**AuthExtensions.cs**](./Authorization.Auth/AuthExtensions.cs) class. There are three different scenarios for `Authorize` that determine how access is permitted. Each scenario has two overloads, based on whether or not the `exec` delegate function returns a value (`Task` or `Task<T>`).
 
@@ -304,7 +304,7 @@ public async Task AddBrief([FromBody]Brief brief) =>
 ```
 
 ## Angular Authorization
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)
 
 In Angular, [Route Guards](https://angular.io/guide/router#milestone-5-route-guards) are used to provide logic which determines whether or not a route can be accessed. The [**AuthContextService**](./Authorization.Web/ClientApp/src/app/services/auth-context.service.ts) defines all of the functions necessary for performing authorization within a route guard.
 
@@ -403,7 +403,7 @@ export const Routes: Route[] = [
 ```
 
 ## Angular Layout Restriction
-[Back to Top](#org-based-role-authorization)
+[Back to Top](#organization-based-role-authorization)
 
 Because the `User` and `AuthContext` instances are streamed into the application interface, components can be conditionally rendered based on certain criteria.
 
