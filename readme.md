@@ -42,7 +42,7 @@ dotnet run
 
 The application should now be hosted at http://localhost:5000.
 
-[![org-selector](./.resources/gifs/01-org-selector.gif)](./.resources/gifs/01-org-selector.gif)
+[![org-selector](./.resources/gifs/01-org-selector.gif)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/gifs/01-org-selector.gif)
 
 ## Overview
 [Back to Top](#organization-based-role-authorization)
@@ -72,7 +72,7 @@ This section outlines all of the infrastructure that has been written to facilit
 
 The entities that enable Org-Based Role Authorization are illustrated in the following diagram:
 
-[![org-auth-entities](./.resources/images/org-auth-entities.png)](./.resources/images/org-auth-entities.png)
+[![org-auth-entities](./.resources/images/org-auth-entities.png)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/images/org-auth-entities.png)
 
 > Collection navigation properties that are not relevant to this diagram have been removed for brevity
 
@@ -157,7 +157,7 @@ When the `http.post` call in the `toggleUserAdmin` function returns successfully
 
 Before showing how Authorization works, it's important to understand the kind of resources that would be protected at the `Org` level. The following diagram shows how the Caveat framework is structured:
 
-[![caveat-framework](./.resources/images/caveat-framework.png)](./.resources/images/caveat-framework.png)
+[![caveat-framework](./.resources/images/caveat-framework.png)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/images/caveat-framework.png)
 
 > Collection navigation properties that are not relevant to this diagram have been removed for brevity
 
