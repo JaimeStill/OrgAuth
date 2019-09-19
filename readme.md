@@ -7,6 +7,7 @@
     * [Entity Framework](#entity-framework)
     * [Auth Library](#auth-library)
     * [Auth Controller](#auth-controller)
+      * [Checking GET Endpoints](#checking-get-endpoints)
     * [SignalR](#signalr)
 * [Caveat Framework](#caveat-framework)
 * [API Authorization](#api-authorization)
@@ -61,6 +62,16 @@ The following sections describe the infrastructure and practices established to 
 ### Config
 [Back to Top](#organization-based-role-authorization)
 
+This app is intended to allow you to see how a theoretical app would be affected by different authorization conditions. Because of this, the authorization configuration is isolated from the rest of the application so that if you restrict access to the current user, you are not locked out of the authorization configuration.
+
+The app launches at the default `/config/*` route, and has the following sub-routes:
+* `/users` - Manage app `User` accounts. Users are based on an Active Directory account, or in the case of development, the mock user provider defined in `Authorization.Identity.Mock`.
+* `/user-roles` - Manage user role assignments
+* `/orgs` - Manage `Org` entities
+* `org-users` - Manage `User` assignments to an `Org`
+* `org-user-roles` - Manage `Role` assignments for a `User` in an `Org`
+
+[![config](./.resources/gifs/02-config.gif)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/gifs/02-config.gif)
 
 ## Authorization Infrastructure
 [Back to Top](#organization-based-role-authorization)  
@@ -117,12 +128,26 @@ In order to retrieve a given `AuthContext` and to provide client-side route auth
 
 > The methods in this controller are exposed to Angular via a global `AuthContextService` service in the Angular [**services**](./Authorization.Web/ClientApp/src/app/services) folder
 
+#### Checking GET Endpoints
+[Back to Top](#organization-based-role-authorization)  
+
+After seeding the database and running the app, modify the authorization context (roles, org assignments, and roles within those org assignments). When this is done, you can check the API endpoints in the browser:
+
+* http://localhost:5000/api/org/getOrgs - This will list all of the `Org` records
+* http://localhost:5000/api/user/getUsers - This will list all of the `User` records
+* http://localhost:5000/api/auth/getAuthContext/1 - This will return the `AuthContext` of the current user for the `Org` with an ID of **1**.
+* http://localhost:5000/api/auth/getDefaultContext - This will return the `AuthContext` of the current user based on the `Org` with an ID that matches the `User.DefaultOrgId` value.
+* http://localhost:5000/api/auth/validateAdmin - Validates whether the current user's `User.IsAdmin` property is `true`.
+* http://localhost:5000/api/auth/validateAnyRole/microsoft - Validates whether the current user has any role associated with the `Org` specified at the end of the route (*microsoft* in this case).
+
 ### SignalR
 [Back to Top](#organization-based-role-authorization)  
 
 When any of the authorization values associated with the current user are modified, it's imperative that the `AuthContext` is updated to reflect those changes. For instance, if an administrator removes a `User` from an `Org`, any associated `OrgUserRole` entries are removed, and they no longer have access to those `Org` resources. 
 
 If the user affected by this change is in an active session, those changes should immediately take place transparently. Because of this, SignalR has been used to provide real-time, multicast communication between user sessions where Authorization permissions are concerned. This section will highlight not only the SignalR infrastructure, but the points where it is used to trigger these updates.
+
+[![signalr](./.resources/gifs/03-signalr.gif)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/gifs/03-signalr.gif)
 
 [**SocketHub.cs**](./Authorization.Web/Hubs/SocketHub.cs)
 
@@ -180,10 +205,14 @@ In order to retrieve a collection of `Item` records that belong to an `Org`, as 
 
 > The Angular models and services for the above entities are defined in the [**models/api**](./Authorization.Web/ClientApp/src/app/models/api) and [**services/api**](./Authorization.Web/ClientApp/src/app/services/api) Angular folders, respectively.
 
+[![caveats](./.resources/gifs/04-caveats.gif)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/gifs/04-caveats.gif)
+
 ## API Authorization
 [Back to Top](#organization-based-role-authorization)
 
 API Authorization is purely driven by the `Authorize` methods defined in the [**AuthExtensions.cs**](./Authorization.Auth/AuthExtensions.cs) class. There are three different scenarios for `Authorize` that determine how access is permitted. Each scenario has two overloads, based on whether or not the `exec` delegate function returns a value (`Task` or `Task<T>`).
+
+[![api-auth](./.resources/gifs/05-api-auth.gif)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/gifs/05-api-auth.gif)
 
 > Every `Authorize` method receives a `Func<AppDbContext, Task> exec` or `Func<AppDbContext, Task<T> exec` argument, which is a delegate function for the `Task` to execute if authorization is successful.
 
@@ -307,6 +336,8 @@ public async Task AddBrief([FromBody]Brief brief) =>
 [Back to Top](#organization-based-role-authorization)
 
 In Angular, [Route Guards](https://angular.io/guide/router#milestone-5-route-guards) are used to provide logic which determines whether or not a route can be accessed. The [**AuthContextService**](./Authorization.Web/ClientApp/src/app/services/auth-context.service.ts) defines all of the functions necessary for performing authorization within a route guard.
+
+[![ng-auth](./.resources/gifs/06-ng-auth.gif)](https://raw.githubusercontent.com/JaimeStill/OrgAuth/master/.resources/gifs/06-ng-auth.gif)
 
 In this demo application, two guards are defined: [**AdminGuard**](./Authorization.Web/ClientApp/src/app/guards/admin.guard.ts) and [**OrgGuard**](./Authorization.Web/ClientApp/src/app/guards/org.guard.ts).
 
